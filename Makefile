@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+         #
+#    By: yana <yana@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 14:56:41 by ysirkich          #+#    #+#              #
-#    Updated: 2024/05/15 16:33:36 by ysirkich         ###   ########.fr        #
+#    Updated: 2024/05/19 23:47:27 by yana             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ clean:
 
 fclean:	clean
 		$(RM)	$(NAME)
-		@make	-C	$(LIBFTDIR)	Fclean
+		@make	-C	$(LIBFTDIR)	fclean
 
 re:	fclean	all
-.PHONY:	all bonus clean fclean re libft
+.PHONY:	all clean fclean re libft

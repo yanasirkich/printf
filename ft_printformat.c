@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printformat.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:02:02 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/15 19:06:54 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:18:54 by yana             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 int	ft_putstr(char *str)
 {
@@ -20,45 +20,105 @@ int	ft_putstr(char *str)
 		return (-1);
 	count = 0;
 	while (str[count])
-		count++;
+		count += write(1, &str[count], 1);
 	return (count);
 }
 
-int	ft_putptr(uintptr_t ptr)
+int	ft_putptr(unsigned long ptr) //probably a bullshit
 {
 	int	count;
-	char *hex;
-	//*hex = "0123456789abcdef";
+	int	hex_value;
 
 	count = 0;
-	count += write (1, "0x", 2);
-	count += write (1, &hex[(ptr >> (4 * sizeof(ptr) - 4)) && 0xf], 1);
-	
+	if (ft_putchar('0') == -1 || ft_putchar('x') == -1)
+		return (-1);
+	count += 2;
+	hex_value = ft_puthexdec(ptr, 0);
+	if (hex_value == -1)
+		return (-1);
+	count += hex_value;
+	return (count);
 }
 
-int	ft_putnbr(long int nb)
+int	ft_putnbr(int nb)
 {
-	int	result;
 	int	count;
 
-	//if (overflow check maybe i dont fucking knowwwww)
-		//return (-1);
+	count = 0;
+	if (nb == -2147483648)
+	{
+		if (ft_putchar('-') == -1 || ft_putchar('2') == -1)
+			return (-1);
+		count += 2;
+		nb = 147483648;
+	}
 	if (nb < 0)
 	{
-		count += ft_putchar('-');
-		nb *= -1;
+		if (ft_putchar('-') == -1)
+			return (-1);
+		count++;
+		nb = -nb;
 	}
 	if (nb >= 10)
 	{
-		count += ft_putnbr(nb/10);
-		count += ft_putchar(nb % 10 + '0');
+		if ((count = ft_putnbr(nb / 10)) == -1)
+			return (-1);
 	}
-	return (count);
+	if (ft_putchar(nb % 10 + '0') == -1)
+		return (-1);
+	return (count + 1);
 }
 
 int	ft_putundec(unsigned int nb)
 {
+	char	buffer[11];
+	int		count;
+	int		i;
 
+	if (nb == 0)
+		return (ft_putchar('0'));
+	i = 0;
+	while (nb)
+	{
+		buffer[i++] = (nb % 10) + '0';
+		nb /= 10;
+	}
+	count = 0;
+	while (i > 0)
+	{
+		count += ft_putchar(buffer[--i]);
+		if (count == -1)
+			return (-1);
+		count++;
+	}
+	return (count);
 }
 
-ft_puthexdec(va_arg(args, unsigned int), 0)
+int	ft_puthexdec(unsigned long nb, int upper)
+{
+	char	*hex;
+	int		count;
+	char	buffer[17];
+	int		i;
+
+	if (nb == 0)
+		return (ft_putchar('0'));
+	if (upper)
+		hex = "0123456789ABCDEF";
+	else
+		hex = "0123456789abcdef";
+	i = 0;
+	while (nb)
+	{
+		buffer[i++] = hex[nb % 16];
+		nb /= 16;
+	}
+	count = 0;
+	while (i-- > 0)
+	{
+		count += ft_putchar(buffer[i]);
+		if (count == -1)
+			return (-1);
+	}
+	return (count);
+}
