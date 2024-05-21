@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printformat.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:02:02 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/20 21:00:10 by yana             ###   ########.fr       */
+/*   Updated: 2024/05/21 19:20:36 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 int	ft_putstr(char *str)
 {
 	int	count;
+	int	written;
 
-	if (!str) //is it needed though omgg
-		return (-1);
+	if (!str)
+		str = "(null)";
 	count = 0;
+	written = 0;
 	while (str[count])
-		count += write(1, &str[count], 1);
+	{
+		written = write(1, &str[count], 1);
+		if (written == -1)
+			return (-1);
+		count++;
+	}
 	return (count);
 }
 
-int	ft_putptr(unsigned long ptr) //probably a bullshit
+int	ft_putptr(unsigned long ptr)
 {
 	int	count;
 	int	hex_value;
@@ -47,10 +54,9 @@ int	ft_putnbr(int nb)
 	count = 0;
 	if (nb == -2147483648)
 	{
-		if (ft_putchar('-') == -1 || ft_putchar('2') == -1)
+		if (write(1, "-2147483648", 11) != 11)
 			return (-1);
-		count += 2;
-		nb = 147483648;
+		return (11);
 	}
 	if (nb < 0)
 	{
@@ -61,12 +67,13 @@ int	ft_putnbr(int nb)
 	}
 	if (nb >= 10)
 	{
-		if ((count = ft_putnbr(nb / 10)) == -1)
+		count += ft_putnbr(nb / 10);
+		if (count == -1)
 			return (-1);
 	}
 	if (ft_putchar(nb % 10 + '0') == -1)
 		return (-1);
-	return (count + 1);
+	return (++count);
 }
 
 int	ft_putundec(unsigned int nb)
@@ -89,7 +96,6 @@ int	ft_putundec(unsigned int nb)
 		count += ft_putchar(buffer[--i]);
 		if (count == -1)
 			return (-1);
-		count++;
 	}
 	return (count);
 }

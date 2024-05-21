@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:53:26 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/20 00:07:44 by yana             ###   ########.fr       */
+/*   Updated: 2024/05/21 19:20:29 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,25 @@ int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	int		count;
-	int		i;
 
 	va_start(args, str);
 	count = 0;
-	i = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] == '%')
-			count += ft_format(str[++i], args);
+		if (*str == '%' && *(str + 1) != '\0')
+		{
+			count += ft_format(*(++str), args);
+			if (count == -1)
+				return (-1);
+		}
+		else if ((write(1, str, 1) == -1))
+		{
+			va_end(args);
+			return (-1);
+		}
 		else
-			count += write(1, &str[i], 1);
-		i++;
+			count++;
+		str++;
 	}
 	va_end(args);
 	return (count);
@@ -45,7 +52,7 @@ int	ft_format(char format, va_list args)
 	else if (format == 'p')
 		count += ft_putptr(va_arg(args, unsigned long));
 	else if (format == 'd' || format == 'i')
-		count += ft_putnbr(va_arg(args, int)); // long int maybe
+		count += ft_putnbr(va_arg(args, int));
 	else if (format == 'u')
 		count += ft_putundec(va_arg(args, unsigned int));
 	else if (format == 'x')
@@ -54,10 +61,16 @@ int	ft_format(char format, va_list args)
 		count += ft_puthexdec(va_arg(args, unsigned int), 1);
 	else if (format == '%')
 		count += ft_putchar('%');
+	else
+		return (-1);
+	if (count == -1)
+		return (-1);
 	return (count);
 }
 
 int	ft_putchar(char c)
 {
-	return (write (1, &c, 1));
+	if (write(1, &c, 1) == -1)
+		return (-1);
+	return (1);
 }

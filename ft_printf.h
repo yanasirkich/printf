@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:57:05 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/20 14:20:59 by yana             ###   ########.fr       */
+/*   Updated: 2024/05/21 19:20:33 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	 FT_PRINTF_H
+#ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
 # include <stdarg.h>
@@ -24,5 +24,6 @@ int	ft_putptr(unsigned long ptr);
 int	ft_putnbr(int nb);
 int	ft_putundec(unsigned int nb);
 int	ft_puthexdec(unsigned long nb, int upper);
+int	ft_printpercent(void);
 
 #endif
