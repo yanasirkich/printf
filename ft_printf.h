@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:57:05 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/21 19:20:33 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:27:02 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	ft_putptr(unsigned long ptr);
 int	ft_putnbr(int nb);
 int	ft_putundec(unsigned int nb);
 int	ft_puthexdec(unsigned long nb, int upper);
-int	ft_printpercent(void);
 
 #endif
