@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:02:02 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/21 19:23:07 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:38:49 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_putstr(char *str)
 	written = 0;
 	while (str[count])
 	{
-		written = write(1, &str[count], 1);
+		written = ft_putchar(str[count]);
 		if (written == -1)
 			return (-1);
 		count++;
@@ -73,7 +73,7 @@ int	ft_putnbr(int nb)
 	}
 	if (ft_putchar(nb % 10 + '0') == -1)
 		return (-1);
-	return (++count);
+	return (count + 1);
 }
 
 int	ft_putundec(unsigned int nb)
@@ -104,7 +104,7 @@ int	ft_puthexdec(unsigned long nb, int upper)
 {
 	char	*hex;
 	int		count;
-	char	buffer[17];
+	char	buffer[16];
 	int		i;
 
 	if (nb == 0)

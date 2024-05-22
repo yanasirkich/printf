@@ -6,7 +6,7 @@
 #    By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 14:56:41 by ysirkich          #+#    #+#              #
-#    Updated: 2024/05/21 18:27:52 by ysirkich         ###   ########.fr        #
+#    Updated: 2024/05/22 12:54:23 by ysirkich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,4 +35,4 @@ fclean:	clean
 		$(RM)	$(NAME)
 
 re:	fclean	all
-.PHONY:	all clean fclean re libft
+.PHONY:	all clean fclean re
