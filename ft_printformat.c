@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printformat.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:02:02 by ysirkich          #+#    #+#             */
-/*   Updated: 2024/05/22 12:38:49 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:47:37 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ int	ft_putundec(unsigned int nb)
 	count = 0;
 	while (i > 0)
 	{
-		count += ft_putchar(buffer[--i]);
-		if (count == -1)
+		if (ft_putchar(buffer[--i]) == -1)
 			return (-1);
+		count++;
 	}
 	return (count);
 }
