@@ -1,4 +1,4 @@
-# 🦅 printf</li>
+#  printf</li>
 
 ## Introduction
 
